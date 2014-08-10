@@ -7,7 +7,7 @@ option(test "Build all tests." OFF) # Makes boolean 'test' available.
 set(PROJECT_NAME MyProject)
 project(${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
 
 # If you want your own include/ directory, set this, and then you can do
 # include_directories(${COMMON_INCLUDES}) in other CMakeLists.txt files.
@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS "-g -Wall")
 ################################
 # Normal Libraries & Executables
 ################################
-add_library(project1_lib project1.cpp)
+add_library(project1_lib project1.cpp doubler.cpp)
 add_executable(project1 main.cpp)
 # Key idea: SEPARATE OUT your main() function into its own file so it can be its
 # own executable. Separating out main() means you can add this library to be
@@ -40,7 +40,7 @@ if (test)
   ##############
   # Unit Tests
   ##############
-  add_executable(runUnitTests test_project1.cpp)
+  add_executable(runUnitTests test_project1.cpp test_doubler.cpp)
 
   # Standard linking to gtest stuff.
   target_link_libraries(runUnitTests gtest gtest_main)
